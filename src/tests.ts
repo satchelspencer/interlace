@@ -1,4 +1,45 @@
-import { Graph } from './types'
+import { Graph, Point, Node } from './types'
+import { PI, sin, cos } from './util'
+import intersect from './intersect'
+
+export function star8(x: number, y: number, rad: number): Graph {
+  const res: Graph = {},
+    pcount = 9,
+    skip = 3,
+    pfrac = (2 * PI) / pcount
+
+  for (let i = 0; i < pcount; i++) {
+    const angle = pfrac * i,
+      prev = (i - skip + pcount) % pcount,
+      next = (i + skip + pcount) % pcount,
+      p: Node = {
+        x: x + cos(angle) * rad,
+        y: y + sin(angle) * rad,
+        n: [prev + '', next + ''],
+      }
+    res[i + ''] = p
+  }
+  // res['a'] = {
+  //   x: 700,
+  //   y: 1200,
+  //   n: ['b'],
+  // }
+  // res['b'] = {
+  //   x: 100,
+  //   y: 0,
+  //   n: ['a'],
+  // }
+  intersect(res)
+  return res
+}
+
+export function randomize(graph: Graph, amount = 100) {
+  for (let id in graph) {
+    const node = graph[id]
+    node.x += Math.random() * amount - amount / 2
+    node.y += Math.random() * amount - amount / 2
+  }
+}
 
 export function star(size = 100): Graph {
   return {

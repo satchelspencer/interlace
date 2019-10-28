@@ -12,11 +12,11 @@ export interface Graph {
   [id: number]: Node
 }
 
-export type CrossAngles = [number, number]
+export type CrossAngles = number[]
 
 export interface PathNode{
-  id: string,
-  prev?: string,
+  id: string | number,
+  prev?: string | number,
   startCross?: CrossAngles,
   endCross?: CrossAngles
 }
